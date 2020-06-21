@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jobs>
+
+    <job class="com.ropeok.dataprocess.v2.job.impl.NetJobV2" name="性能测试" group="基础数据" cron="5 5 20 * * ?" desc="性能测试">
+        <step class="com.ropeok.dataprocess.v2.component.input.JDBCInput" id="source" name="关系库输入" url="jdbc:oracle:thin:@43.254.47.190:1521:prod" username="prodaupre" password="CLJ!#123456">
+            SELECT * FROM HEC_MCS_CONS_SINGLE
+        </step>
+    </job>
+
+    <job class="com.ropeok.dataprocess.v2.job.impl.NetJobV2" name="耗材组件信息" group="基础数据" cron="5 5 11 * * ?" desc="耗材组件信息入库">
+
+        <step class="com.ropeok.dataprocess.v2.component.input.JDBCInput" id="source" name="关系库输入" url="jdbc:oracle:thin:@43.254.47.190:1521:prod" username="prodaupre" password="CLJ!#123456">
+            SELECT * FROM HEC_MCS_CONS_SINGLE
+        </step>
+
+        <step class="com.ropeok.dataprocess.v2.component.out.JDBCOutput" id="ids4" name="关系库输出" url="jdbc:oracle:thin:@39.106.207.245:1521:bidb" username="biee" password="biee!@#321" mode="insert" table="HEC_MCS_CONS_SINGLE" in_columns="COMPID,REGID,CLASSONE,CLASSTWO,PRODUCT,REGSPEC,REGMODELS,REGNO,MATERIAL,PLACE,MEASUREUNIT,CONVERRATIO,PACKINGUNIT,AGENTNAME,FACTORYNAME,STANDARDS,EXPDATE,PACKINGMATERIAL,COMPONENTS_DRUG,SCOPE_DRUG,DESCRIPTION,USERNAME,USERID,CREATETIME,LASTUPDATE,ISDEL,CONSPY,CONSWB,CLASSTHREE,CLASSFOUR,CLASSFIVE,CLASSSIX,CLASSZERO,PROCODE_SINGLE,REMARK_SINGLE,ISJOINALL,NATIONLOWPRICE,PROVICELOWPRICE,NATIONPRICEFILE,PROVICEPRICEFILE,NMEASUREUNIT,PMEASUREUNIT,APPLYFACTORY,OPERATECMD,OPERATECMD2,AUDITSTATUS,AUDITOPINION,AUDITTIME,AUDITUSER_ID,AUDITUSERNAME,ISAUDIT,CHANGEID,REGNAME" batch_size="5000" prev="source"/>
+
+    </job>
+
+    <job class="com.ropeok.dataprocess.v2.job.impl.NetJobV2" name="耗材规格信息" group="基础数据" cron="5 5 10 * * ?" desc="耗材规格信息入库">
+
+        <step class="com.ropeok.dataprocess.v2.component.input.JDBCInput" id="source" name="关系库输入" url="jdbc:oracle:thin:@43.254.47.190:1521:prod" username="prodaupre" password="CLJ!#123456">
+            SELECT * FROM HEC_MCS_CONS_CODE
+        </step>
+
+        <step class="com.ropeok.dataprocess.v2.component.out.JDBCOutput" id="ids4" name="关系库输出" url="jdbc:oracle:thin:@39.106.207.245:1521:bidb" username="biee" password="biee!@#321" mode="insert" table="HEC_MCS_CONS_CODE" in_columns="COMPID,CODEID,SPEC,MODELS,USERNAME,USERID,CREATETIME,LASTUPDATE,ISDEL,REGID,PROCODE_CODE,REMARK_CODE,APPLYFACTORY,OPERATECMD,OPERATECMD2,CHANGEID,ISAUDIT,CCDID" batch_size="5000" prev="source"/>
+
+    </job>
+
+</jobs>
