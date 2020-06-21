@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<proc-jobs><!--* * 0/1 * * ?-->
+
+    <proc-job class="com.ropeok.dataprocess.job.impl.ProcBaseJob" name="交易明细索引" group="业务数据" cron="0 0 4 * * ?" desc="交易明细索引任务">
+        <input type="JDBC" url="jdbc:mysql://rm-2zen18ooiq4wsn0rjo.mysql.rds.aliyuncs.com:3306/trade?useUnicode=true&amp;characterEncoding=UTF-8" username="psearch" password="Search!@#123" fetchSize="5000">
+            SELECT
+                id,
+                acquisitionFlag,
+                DATE_FORMAT(
+                    affirmGoodsdate,
+                    '%Y-%m-%d %H:%i:%s'
+                ) affirmGoodsdate,
+                approveNum,
+                DATE_FORMAT(
+                    approveTime,
+                    '%Y-%m-%d %H:%i:%s'
+                ) approveTime,
+                area,
+                areaId,
+                bargainPrice,
+                baseDrugFlag,
+                baseDrugType,
+                bidType,
+                bigPacking,
+                buyerId,
+                catalogClassify,
+                chineseWesternMedKind,
+                countryMedCode,
+                countyArea,
+                countyAreaId,
+                currencyName,
+                dataSource,
+                defaultPrice,
+                defaultPriceStr,
+                deliveryAmt,
+                deliveryFactory,
+                deliveryFactoryCode,
+                deliveryFactoryId,
+                deliveryFactoryIsProvince,
+                deliveryQty,
+                deliveryStatus,
+                detailId,
+                drugFactory,
+                drugFactoryCode,
+                drugFactoryId,
+                drugFactoryIsProvince,
+                drugProp,
+                drugformName,
+                groupLevel,
+                groupNum,
+                hospitalClassifi,
+                hospitalCode,
+                hospitalId,
+                hospitalLevel,
+                hospitalName,
+                hospitalType,
+                hxDirCode,
+                hxDirName,
+                hxProductId,
+                medicineName,
+                medicineStandard,
+                nonCentralizedPurchasFlag,
+                orderAmtCancel,
+                orderAmtFinal,
+                orderAmtOriginal,
+                orderQtyCancel,
+                orderQtyFinal,
+                orderQtyOriginal,
+                pack,
+                packMaterial,
+                pingui,
+                pqStatus,
+                productType,
+                projectCode,
+                projectName,
+                qualityLevel,
+                readStatus,
+                DATE_FORMAT(
+                    readTime,
+                    '%Y-%m-%d %H:%i:%s'
+                ) readTime,
+                receiptStatus,
+                remark,
+                returnQtyDeliveryConfirm,
+                returnQtyHospitalApply,
+                DATE_FORMAT(
+                    sendDate,
+                    '%Y-%m-%d %H:%i:%s'
+                ) sendDate,
+                sendDateStr,
+                DATE_FORMAT(
+                    settleDate,
+                    '%Y-%m-%d %H:%i:%s'
+                ) settleDate,
+                settleMoney,
+                settle_status,
+                settle_type,
+                shortSupply,
+                sjStatus,
+                STATUS,
+                tackOverAmt,
+                tackOverQty,
+                tiaomu,
+                topLimitPrice,
+                topLimitPriceStr,
+                tranDsId,
+                transPrice,
+                trdDeliveryFactoryId,
+                trdDrugFactoryId,
+                trdHospitalId,
+                voidState,
+                allflag,
+                trdDetailId,
+                dataFrom,
+                buyerStep,
+                DATE_FORMAT(
+                    buyerDate,
+                    '%Y-%m-%d %H:%i:%s'
+                ) buyerDate,
+                DATE_FORMAT(
+                    voidDate,
+                    '%Y-%m-%d %H:%i:%s'
+                ) voidDate,
+                DATE_FORMAT(
+                    sendGoodsdate,
+                    '%Y-%m-%d %H:%i:%s'
+                ) sendGoodsdate,
+                ktProductId,
+                priceUnitText,
+                minUseUnit,
+                minPackUnit,
+                minUseUnitCount,
+                DATE_FORMAT(
+                    setShortDate,
+                    '%Y-%m-%d %H:%i:%s'
+                ) setShortDate,
+                agentFactoryId,
+                agentFactory,
+                trdAgentFactoryId,
+                DATE_FORMAT(sendDate, '%Y') year,
+                DATE_FORMAT(sendDate, '%m') month,
+                DATE_FORMAT(sendDate, '%Y%m') yearMonth
+            FROM
+                p_ptrade_detail
+        </input>
+        <!--<input type="ES" serverip="101.200.45.46" servername="elasticsearch" serverport="9300" index="p_ptrade_detail_1.0.0" idxtype="p_ptrade_detail" fetchSize="5000">
+            {
+            "query": {
+            "match_all": {}
+            }
+            }
+        </input>-->
+
+        <output type="ES" serverip="172.18.30.106" servername="elasticsearch" serverport="9300" index="p_ptrade_detail" idxtype="p_ptrade_detail" batchsize="2000" idname="id" mode="insert" poolSize="5"></output>
+    </proc-job>
+
+</proc-jobs>
